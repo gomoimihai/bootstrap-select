@@ -254,7 +254,7 @@
         liHeight: function() {
             var selectClone = this.$newElement.clone();
             selectClone.appendTo('body');
-            var liHeight = selectClone.addClass('open').find('.dropdown-menu li > a').outerHeight();
+            var liHeight = selectClone.addClass('open').find('.dropdown-menu li > a:eq(2)').outerHeight();
             selectClone.remove();
             this.$newElement.data('liHeight', liHeight);
         },
@@ -282,7 +282,7 @@
                     selectOffsetBot = $window.height() - selectOffsetTop - selectHeight;
                 };
                 posVert();
-                
+
             if (this.options.size == 'auto') {
                 var getSize = function() {
                     var minHeight;
@@ -299,7 +299,7 @@
                     }
                     menu.css({'max-height' : menuHeight + 'px', 'overflow' : 'hidden', 'min-height' : minHeight + 'px'});
                     menuInner.css({'max-height' : (menuHeight - menuPadding) + 'px', 'overflow-y' : 'auto', 'min-height' : (minHeight - menuPadding) + 'px'});
-                }
+                };
                 getSize();
                 $(window).resize(getSize);
                 $(window).scroll(getSize);
@@ -541,7 +541,7 @@
                     65:"a", 66:"b", 67:"c", 68:"d", 69:"e", 70:"f", 71:"g", 72:"h", 73:"i", 74:"j", 75:"k", 76:"l",
                     77:"m", 78:"n", 79:"o", 80:"p", 81:"q", 82:"r", 83:"s", 84:"t", 85:"u", 86:"v", 87:"w", 88:"x", 89:"y", 90:"z",
                     96:"0", 97:"1", 98:"2", 99:"3", 100:"4", 101:"5", 102:"6", 103:"7", 104:"8", 105:"9"
-                }
+                };
 
                 var keyIndex = [];
 
@@ -578,6 +578,15 @@
                     e.preventDefault();
                 };
                 $(document).data('keycount',0);
+            }
+
+            if (/(9)/.test(e.keyCode)){
+                $(':focus').click();
+                $parent.addClass('open');
+                $(document).data('keycount', 0);
+                if (e.keyCode === 9) {
+                    $parent.removeClass('open');
+                }
             }
         },
 
